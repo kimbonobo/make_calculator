@@ -52,9 +52,9 @@ class Main(QDialog):
         
         ### 과제연산 버튼을 클릭했을 때, 각 과제연산 부호가 수식창에 추가될 수 있도록 시그털 설정
         button_rem.clicked.connect(lambda state, operation = "%": self.button_operation_clicked(operation))
-        ##button_exp.clicked.connect(self.button_exp_clicked)
-        ##button_inv.clicked.connect(lambda state, operation = "%": self.button_operation_clicked(operation))
-        ##button_root.clicked.connect(lambda state, operation = "%": self.button_operation_clicked(operation))
+        button_exp.clicked.connect(self.button_exp_clicked)
+        button_inv.clicked.connect(self.button_inv_clicked)
+        button_root.clicked.connect(self.button_root_clicked)
 
         ### 사칙연산 버튼을 layout_operation 레이아웃에 추가
         layout_dog.addWidget(button_plus,4,3,1,1)
@@ -141,11 +141,22 @@ class Main(QDialog):
             self.number_display.setText("")
         
     def button_backspace_clicked(self):
-        number = self.number_display.text()
-        number = number[:-1]
+        equation = self.equation.text()
+        equation = equation[:-1]
+        self.equation.setText(equation)
+    
+    def button_exp_clicked(self):
+        number=self.number_display.text()
+        number+='**2'
         self.number_display.setText(number)
-        
-  
+    def button_inv_clicked(self):
+        number=self.number_display.text()
+        number+='**-1'
+        self.number_display.setText(number)
+    def button_root_clicked(self):
+        number=self.number_display.text()
+        number+='**(1/2)'
+        self.number_display.setText(number)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
